@@ -1,9 +1,10 @@
 //
 // Created by Eimy on 23/03/2017.
 //
-
-#include <iostream>
 #include "Lector.h"
+#include <fstream>
+#include <iostream>
+
 using namespace std;
 
 //void Lector:: LeerProveedor(string archivo, listaDC Lista){
@@ -13,10 +14,8 @@ using namespace std;
 //}
 
 
-int Lector:: Leer(){
+int Lector:: Leer(string nomArchivo){
 
-
-    // ESTE ES UN EJEMPLO COPIADO JAJA
 
     string cod_p;
     string nom_p;
@@ -27,40 +26,40 @@ int Lector:: Leer(){
     ifstream is("Proveedores.txt");  // open file
 
     char c;
-    string l;
+    string linea;
     while (is.get(c)){// loop getting single characters
-        if (cont <= 4 ){
+        //if (cont <= 4 ){
 
             if (c != ';'){
-                l = l + c;
+                linea = linea + c;
                 //std::cout << l << endl;
             }else {
                 switch (cont)
                 {
-                    case 1: cod_p = l;
+                    case 1: cod_p = linea;
                         break;
 
-                    case 2: nom_p = l;
+                    case 2: nom_p = linea;
                         break;
 
-                    case 3: dir_p = l;
+                    case 3: dir_p = linea;
                         break;
 
-                    case 4: tel_p = l;
-                        cout << tel_p << endl;
+                    case 4: tel_p = linea;
+                        cout << tel_p;
                         break;
                 }
                 cont++;
-                l = "";
+                linea = "";
             }
         } else {
 
             //LLAMAR A LA FUNCION PARA CREAR EL PROVEEDOR//
 
-            std::cout << cod_p << endl;
-            cout << nom_p << endl;
-            cout << dir_p << endl;
-            cout << tel_p << endl;
+            cout << cod_p;
+            cout << nom_p;
+            cout << dir_p;
+            cout << tel_p;
 
             cod_p = "";
             nom_p = "";
@@ -75,5 +74,4 @@ int Lector:: Leer(){
     is.close();                // close file
 
     return 0;
-}
 }
