@@ -9,7 +9,7 @@
 using namespace std;
 
 
-bool Menu:: pedirProveedor(pListaProveedores){
+bool Menu::pedirProveedor(ListaDC pListaProveedores){
 
     int pProveedor;
 
@@ -21,7 +21,7 @@ bool Menu:: pedirProveedor(pListaProveedores){
 }
 
 
-bool Menu::verificarCliente(pListaClientes){
+bool Menu::verificarCliente(ListaDC pListaClientes){
 
     int pIdCliente;
 
@@ -33,7 +33,7 @@ bool Menu::verificarCliente(pListaClientes){
 }
 
 
-bool Menu::verificarCategoria(pListaCategorias){
+bool Menu::verificarCategoria(Lista pListaCategorias){
 
     int pCategoria;
 
@@ -74,14 +74,14 @@ void Menu::crearCliente(){
 }
 
 
-void Menu::start(pListaProveedores , pListaClientes , pListaCategorias , pListaProductos) {
+void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , Lista pListaCategorias , Lista pListaProductos) {
 
     int descuento = 0;
     int pCantidad = 1;
     string pProducto;
 
     cout << "Menu de Ventas\n";
-    
+
     if (pedirProveedor(pListaProveedores)) {
 
         if (verificarCliente(pListaClientes)) {
@@ -111,7 +111,6 @@ void Menu::start(pListaProveedores , pListaClientes , pListaCategorias , pListaP
             cout << "La categoría no existe\n";
 
         }
-
 
     } else {
         cout << "El proveedor no existe\n";
