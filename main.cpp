@@ -82,12 +82,23 @@ public:
     int largoLista();
     void convLista(int num);
     bool existe(string s);
-    void reducirStock (int pProducto , int pCantidad);
+    string nombre(string s , bool prod);
+    int precio(string s);
+    void reducirStock (string pProducto, int pCantidad);
 
 
 
 };
 
+
+int convInt(string s) {
+    int x;
+    stringstream convert(s);
+    convert >> x;
+    //cout << x<<endl;
+    return x;
+
+}
 
 int lista::largoLista(){
     int cont=0;
@@ -327,11 +338,30 @@ bool lista ::existe(string s) {
 
 }*/
 
-void lista::reducirStock(int pProducto, int pCantidad) {
-    cout<< "No";
-    //FALTA
+void lista::reducirStock(string pProducto, int pCantidad) {
 
+    snodo aux = primero;
+    int temp;
+    int tot;
+    while (aux) {
+
+        if (aux->valorS == pProducto) {
+
+            aux = aux ->siguiente;
+            aux = aux ->siguiente->siguiente;
+            aux = aux->siguiente;
+            temp = convInt(aux->valorS);
+            tot = temp - pCantidad;
+            aux -> valorS = tot;
+            break;
+
+        } else {
+            aux = aux->siguiente;
+        }
+    }
 }
+
+
 
 
 
@@ -404,6 +434,7 @@ public:
     bool existe(int codigo);
     bool existe(string s);
     void MostrarS();
+    string nombre(string s,bool prod );
 
 private:
     pnodo primero;
@@ -660,6 +691,7 @@ bool ListaDC ::existe(int codigo) {
 }
 
 
+
 bool ListaDC :: existe(string s) {
     pnodo aux = primero;
 
@@ -687,16 +719,120 @@ bool ListaDC :: existe(string s) {
 
 }
 
+string ListaDC :: nombre(string s, bool prod) {
+
+    pnodo aux = primero;
 
 
-int convInt(string s){
-    int x;
-    stringstream convert(s);
-    convert >> x;
-    //cout << x<<endl;
-    return x;
+        while (aux->siguiente != primero) {
+
+            if (aux->valorS == s){
+                return aux->siguiente->valorS;
+
+            } else{
+                aux = aux->siguiente;
+            }
+        }
 
 }
+
+string lista :: nombre(string s, bool prod) {
+
+    snodo aux = primero;
+
+
+    while (aux) {
+
+        if (aux->valorS == s) {
+
+            if (prod) {
+                return aux->siguiente->siguiente->valorS;
+            }
+
+            return aux->siguiente->valorS;
+
+        } else {
+            aux = aux->siguiente;
+        }
+    }
+}
+
+
+
+
+int lista::precio(string s) {
+    string precioT;
+    int precio;
+
+    snodo aux = primero;
+
+    while (aux) {
+
+        if (aux->valorS == s) {
+
+            aux = aux ->siguiente;
+            aux = aux ->siguiente;
+            precioT = aux->siguiente ->valorS;
+            precio = convInt(precioT);
+            return precio;
+
+        } else {
+            aux = aux->siguiente;
+        }
+    }
+}
+
+
+
+
+
+
+void generarFactura(ListaDC listaProv, ListaDC listaClientes, lista listaProd, lista listaCat, string pProveedor,\
+ string idCliente, int descuento, int pCantidad,string codCat, string codProd ){
+
+    string nomProv = listaProv.nombre(pProveedor, false);
+    string nomCliente = listaClientes.nombre(idCliente, false);
+    string nomProd = listaProd.nombre(codProd, true);
+    string nomCat = listaCat.nombre(codCat, false);
+    int precio = listaProd.precio(codProd);
+    //int cantidad = convInt(pCantidad);
+
+    int precioTot = pCantidad*precio - descuento*precio/100;
+
+    //string textToSave;
+    //cout << "Enter the string you want saved: " << endl;
+    //getline(cin,textToSave);
+
+    ofstream saveFile ("Factura.txt");
+
+    saveFile << "Nombre Proveedor: ";
+    saveFile << nomProv;
+    saveFile << "\n";
+    saveFile << "Codigo Proveedor";
+    saveFile << pProveedor;
+    saveFile << "\n";
+    saveFile << "Cedula Cliente: ";
+    saveFile << idCliente;
+    saveFile << "\n";
+    saveFile << "Cantidad de productos: ";
+    saveFile << pCantidad;
+    saveFile << "\n";
+    saveFile << nomProv;
+    saveFile << nomProv;
+    saveFile << "\n";
+    saveFile << nomProv;
+    saveFile << nomProv;
+    saveFile << "\n";
+    saveFile << nomProv;
+
+
+
+
+
+    saveFile.close();
+
+}
+
 
 class Lector{
 
@@ -961,7 +1097,7 @@ void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pLis
     string pProveedor;
     string pIdCliente;
     string pCategoria;
-    int pProducto;
+    string pProducto;
     int opcion;
 
     cout<< "Bienvenido!\n";
@@ -1018,7 +1154,8 @@ void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pLis
 
                     cout<< "Su compra fue realizada\n\n";
                     cout<< "Generando Factura...\n";
-                    generarFactura(pProveedor,descuento, pCantidad, );
+                    generarFactura(pListaProveedores , pListaClientes, pListaProductos, pListaCategorias, pProveedor,\
+ pIdCliente, descuento, pCantidad, pCategoria, pProducto);
                     cout<< "Proceso Finalizado\n";
 
                     continue;
