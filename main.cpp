@@ -303,12 +303,37 @@ bool lista ::existe(string s) {
     return false;
 }
 
+/*lista lista::InsertarProductos(lista pListaProd){
+    int pos = 1
+    int posLista = 1;
+
+    if (ListaVacia()){
+        cout<< "";
+
+    } else{
+        snodo aux = primero;
+        while (aux->siguiente!= NULL){
+            if (pos%3 == 0){
+                lista nueva = new lista(v);
+                nuevo->siguiente=aux->siguiente;
+                aux->siguiente=nuevo;
+                aux=aux->siguiente;
+            }
+
+
+        }
+    }
+}
+
+}*/
 
 void lista::reducirStock(int pProducto, int pCantidad) {
     cout<< "No";
     //FALTA
 
 }
+
+
 
 
 
@@ -792,6 +817,7 @@ lista Lector:: Leer2(string nomArchivo) {
 
 }
 
+
 lista Lector:: Leer3(string nomArchivo) {
 
     char c;
@@ -823,9 +849,13 @@ lista Lector:: Leer3(string nomArchivo) {
 
             }else{
 
-                if (Lista.existe(linea) and isdigit(linea[0]) and cont%5 == 0){
+                if (Lista.existe(linea) and isdigit(linea[0]) and cont%5 == 1){
+                    cout<<"linea\n";
+                    cout<< linea;
+                    cout<<"cont: ";
+                    cout<< cont;
                     linea = "";
-                    contAvanza = 1;
+                    contAvanza = 4;
 
                 }else{
 
@@ -845,6 +875,12 @@ lista Lector:: Leer3(string nomArchivo) {
 
 }
 
+
+
+
+
+
+
 class Menu {
     int proveedor;
     int idCliente;
@@ -853,9 +889,9 @@ class Menu {
 
 public:
     void start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pListaCategorias , lista pListaProductos);
-    bool pedirProveedor(ListaDC pListaProveedores);
-    bool verificarCliente(ListaDC pListaClientes);
-    bool verificarCategoria (lista pListaCategorias);
+    bool verificarProveedor(ListaDC pListaProveedores, string pProveedor);
+    bool verificarCliente(ListaDC pListaClientes, string pIdCliente);
+    bool verificarCategoria (lista pListaCategorias, string pCategoria);
     void crearCliente (ListaDC listaClientes);
 
 
@@ -865,38 +901,24 @@ public:
 
 
 
-bool Menu::pedirProveedor(ListaDC pListaProveedores){
+bool Menu::verificarProveedor(ListaDC pListaProveedores, string pProveedor){
 
-
-    string pProveedor;
-
-    cout << "Digite el codigo del proveedor: \n";
-
-    cin >> pProveedor;
 
     return  (pListaProveedores.existe(pProveedor));
     //return false;
 }
 
 
-bool Menu::verificarCliente(ListaDC pListaClientes){
-
-    string pIdCliente;
-
-    cout << "Digite el ID del cliente: \n";
-    cin >> pIdCliente;
+bool Menu::verificarCliente(ListaDC pListaClientes, string pIdCliente){
 
     return (pListaClientes.existe(pIdCliente));
 
 }
 
 
-bool Menu::verificarCategoria(lista pListaCategorias){
+bool Menu::verificarCategoria(lista pListaCategorias, string pCategoria){
 
-    string pCategoria;
 
-    cout << "Digite la categoria del producto: \n";
-    cin >> pCategoria;
 
     return (pListaCategorias.existe(pCategoria));
 
@@ -936,24 +958,38 @@ void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pLis
 
     int descuento = 0;
     int pCantidad = 1;
+    string pProveedor;
+    string pIdCliente;
+    string pCategoria;
     int pProducto;
     int opcion;
 
     cout<< "Bienvenido!\n";
     cout<< "  \n";
-    cout << "Menu de Ventas\n";
 
-    cout<< "1. Ventas\n";
-    cout<< "2. Salir\n";
 
     while (true) {
-        cout<< "Digite la opcion que desea:";
+        cout << "Menu de Ventas\n";
+
+        cout<< "1. Ventas\n";
+        cout<< "2. Salir\n";
+
+        cout<< "Digite la opcion que desea: ";
         cin>>opcion;
 
         if (opcion == 1) {
-            if (pedirProveedor(pListaProveedores)) {
 
-                if (verificarCliente(pListaClientes)) {
+
+            cout << "\nDigite el codigo del proveedor: ";
+            cin >> pProveedor;
+
+            if (verificarProveedor(pListaProveedores, pProveedor)) {
+
+
+                cout << "\nDigite el ID del cliente: ";
+                cin >> pIdCliente;
+
+                if (verificarCliente(pListaClientes, pIdCliente)) {
 
                     descuento = 5;
 
@@ -965,15 +1001,28 @@ void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pLis
 
                 }
 
-                if (verificarCategoria(pListaCategorias)) {
 
-                    cout << "Digite el codigo del producto que desea adquirir : \n";
+
+                cout << "\nDigite la categoria del producto: ";
+                cin >> pCategoria;
+
+                if (verificarCategoria(pListaCategorias, pCategoria)) {
+
+                    cout << "\nDigite el codigo del producto que desea adquirir: ";
                     cin >> pProducto;
 
-                    cout << "Digite la cantidad de producto que desea adquirir : \n";
+                    cout << "\nDigite la cantidad de producto que desea adquirir: ";
                     cin >> pCantidad;
 
                     pListaProductos.reducirStock(pProducto, pCantidad);
+
+                    cout<< "Su compra fue realizada\n\n";
+                    cout<< "Generando Factura...\n";
+                    generarFactura(pProveedor,descuento, pCantidad, );
+                    cout<< "Proceso Finalizado\n";
+
+                    continue;
+
 
                 } else {
 
@@ -988,7 +1037,7 @@ void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pLis
             }
         }
         if (opcion == 2){
-            cout<< "Gracias!";
+            cout<< "Hasta Luego!\nGracias!";
             break;
 
         }else{
@@ -1009,10 +1058,6 @@ int main (){
     lista listaProductos;
     Lector lector;
     lista Lista;
-    Lista.InsertarFinal("hola");
-    Lista.InsertarFinal("a");
-
-
 
 
 
