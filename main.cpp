@@ -413,6 +413,8 @@ class ListaDC {
 public:
     ListaDC() { primero = actual = NULL; }
 
+    static ListaDC* listaClientes;
+
     void InsertarInicio(int v);
     void InsertarFinal(int v);
     void InsertarFinal (string s);
@@ -435,6 +437,7 @@ public:
     bool existe(string s);
     void MostrarS();
     string nombre(string s,bool prod );
+    void crearCliente(ListaDC listaClientes);
 
 private:
     pnodo primero;
@@ -808,7 +811,7 @@ void generarFactura(ListaDC listaProv, ListaDC listaClientes, lista listaProd, l
     saveFile << "Nombre Proveedor: ";
     saveFile << nomProv;
     saveFile << "\n";
-    saveFile << "Codigo Proveedor";
+    saveFile << "Codigo Proveedor: ";
     saveFile << pProveedor;
     saveFile << "\n";
     saveFile << "Cedula Cliente: ";
@@ -817,14 +820,27 @@ void generarFactura(ListaDC listaProv, ListaDC listaClientes, lista listaProd, l
     saveFile << "Cantidad de productos: ";
     saveFile << pCantidad;
     saveFile << "\n";
-    saveFile << nomProv;
-    saveFile << nomProv;
+    saveFile << "Codigo Categoria: ";
+    saveFile << codCat;
     saveFile << "\n";
-    saveFile << nomProv;
-    saveFile << nomProv;
+    saveFile << "Codigo Producto: ";
+    saveFile << codProd;
     saveFile << "\n";
-    saveFile << nomProv;
+    saveFile << "Nombre Producto: ";
+    saveFile << nomProd;
+    saveFile << "\n";
+    saveFile << "Precio Producto: ";
+    saveFile << precio;
+    saveFile << "\n";
+    saveFile << "Precio Total: ";
+    saveFile << precioTot;
+    saveFile << "\n";
 
+    if (descuento>0){
+        saveFile<<"Se le aplico un descuento del ";
+        saveFile<<descuento;
+        saveFile<<"%";
+    }
 
 
 
@@ -1028,7 +1044,7 @@ public:
     bool verificarProveedor(ListaDC pListaProveedores, string pProveedor);
     bool verificarCliente(ListaDC pListaClientes, string pIdCliente);
     bool verificarCategoria (lista pListaCategorias, string pCategoria);
-    void crearCliente (ListaDC listaClientes);
+    void crearCliente(ListaDC listaClientes);
 
 
 };
@@ -1061,7 +1077,7 @@ bool Menu::verificarCategoria(lista pListaCategorias, string pCategoria){
 }
 
 
-void Menu::crearCliente(ListaDC listaClientes){
+void Menu ::crearCliente(ListaDC listaClientes){
 
     string pCedula;
     string pNombre;
@@ -1131,7 +1147,8 @@ void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pLis
 
                 } else {
 
-                    cout << "Cliente no existe\nAñadiendo nuevo cliente a la base de datos...\n";
+                    cout << "Cliente no existe\n";
+                            //"Añadiendo nuevo cliente a la base de datos...\n";
 
                     crearCliente(pListaClientes);
 
@@ -1202,10 +1219,10 @@ int main (){
     listaClientes = lector.Leer1("Clientes.txt");
     listaCategorias = lector.Leer2 ("Categorias.txt");
     listaProductos = lector.Leer3("Productos.txt");
-    listaProveedores.MostrarS();
-    listaClientes.MostrarS();
-    listaCategorias.MostrarS();
-    listaProductos.MostrarS();
+    //listaProveedores.MostrarS();
+    //listaClientes.MostrarS();
+   // listaCategorias.MostrarS();
+    //listaProductos.MostrarS();
     menu.start(listaProveedores, listaClientes, listaCategorias, listaProductos);
 
     //Lista.existe("hola");
