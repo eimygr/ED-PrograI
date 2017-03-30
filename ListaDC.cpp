@@ -1,5 +1,5 @@
 //
-// Created by Eimy on 29/03/2017.
+// Created by Eimy on 30/03/2017.
 //
 
 #include <iostream>
@@ -8,6 +8,7 @@
 #include "NodoDC.cpp"
 
 using namespace std;
+
 
 
 ListaDC::~ListaDC() {
@@ -63,14 +64,14 @@ void ListaDC::InsertarInicio(int v)
 
 void ListaDC::InsertarFinal(int v)
 {
-    if (ListaVacia())
-    {
+    if (ListaVacia()) {
+        cout<< "Lista VAcia";
         primero = new NodoDC(v);
         primero->anterior=primero;
         primero->siguiente=primero;
-    }
-    else
-    {
+
+    } else {
+        cout<< "No";
         pnodo nuevo = new NodoDC(v);
         nuevo->anterior = primero->anterior;
         nuevo->siguiente=primero->anterior->siguiente;
@@ -79,7 +80,7 @@ void ListaDC::InsertarFinal(int v)
     }
 }
 
-void ListaDC::InsertarFinal(string s){
+/*void ListaDC::InsertarFinal(string s){
 
     if (ListaVacia()) {
         primero = new NodoDC(s);
@@ -95,6 +96,7 @@ void ListaDC::InsertarFinal(string s){
     }
 }
 
+*/
 
 void ListaDC::InsertarPos(int v,int pos)
 {
@@ -244,3 +246,4 @@ bool ListaDC ::existe(int codigo) {
     return false;
 
 }
+

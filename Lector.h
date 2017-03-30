@@ -1,7 +1,6 @@
 //
-// Created by Eimy on 25/03/2017.
+// Created by Eimy on 30/03/2017.
 //
-
 #ifndef PROGRAI_LECTOR_H
 #define PROGRAI_LECTOR_H
 

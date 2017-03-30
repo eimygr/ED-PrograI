@@ -1,5 +1,5 @@
 //
-// Created by Eimy on 25/03/2017.
+// Created by Eimy on 30/03/2017.
 //
 
 #include "Menu.h"
@@ -35,7 +35,7 @@ bool Menu::pedirProveedor(ListaDC pListaProveedores){
     pProveedor = convInt(input);
 
     cout << pProveedor + 5;
-   return  (pListaProveedores.existe(pProveedor));
+    return  (pListaProveedores.existe(pProveedor));
     //return false;
 }
 

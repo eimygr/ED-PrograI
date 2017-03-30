@@ -1,7 +1,6 @@
 //
-// Created by Eimy on 23/03/2017.
+// Created by Eimy on 30/03/2017.
 //
-#define _GLIBCXX_USE_CXX11_ABI 1
 #include "Lector.h"
 //#include "ListaDC.cpp"
 #include "ListaDC.h"
@@ -32,7 +31,7 @@ void Lector:: LeerProveedores(ListaDC listaProveedores) {
     cout<< "convInt";
     listaProveedores.InsertarFinal(codigo);
     cout<<"Insertar Final";
-   // cout <<cont;
+    // cout <<cont;
 
 }
 

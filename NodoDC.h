@@ -1,5 +1,5 @@
 //
-// Created by Eimy on 28/03/2017.
+// Created by Eimy on 30/03/2017.
 //
 
 #ifndef PROGRAI_NODODC_H
@@ -11,37 +11,37 @@ using namespace std;
 class NodoDC {
 
 public:
-        NodoDC(int v){
-            valor = v;
-            siguiente = NULL;
-            anterior =NULL;
-        }
+    NodoDC(int v){
+        valor = v;
+        siguiente = NULL;
+        anterior =NULL;
+    }
 
-        NodoDC(int v, NodoDC * signodo){
-            valor = v;
-            siguiente = signodo;
-        }
+    NodoDC(int v, NodoDC * signodo){
+        valor = v;
+        siguiente = signodo;
+    }
 
-        NodoDC(string s){
+    NodoDC(string s){
         valorS = s;
         siguiente = NULL;
         anterior =NULL;
-        }
+    }
 
-        NodoDC(string s, NodoDC *signodo){
+    NodoDC(string s, NodoDC *signodo){
         valorS = s;
         siguiente = signodo;
-        }
+    }
+
+private:
+    int valor;
+    string valorS;
+    NodoDC *siguiente;
+    NodoDC *anterior;
 
 
-        int valor;
-        string valorS;
-        NodoDC *siguiente;
-        NodoDC *anterior;
-
-
-    friend class listaDC;
-    };
+    friend class ListaDC;
+};
 
 
 typedef NodoDC *pnodo;
