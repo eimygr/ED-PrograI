@@ -14,8 +14,8 @@ class Lector{
 
 
 public:
-    int Leer(string nomArchivo, int cont);
-    void LeerProvedores(ListaDC listaProveedores);
+    string Leer(string nomArchivo, int cont);
+    void LeerProveedores(ListaDC listaProveedores);
     void LeerOriginal (string nomArchivo);
 };
 #endif //PROGRAI_LECTOR_H

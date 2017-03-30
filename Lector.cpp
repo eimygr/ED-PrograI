@@ -1,6 +1,7 @@
 //
 // Created by Eimy on 23/03/2017.
 //
+#define _GLIBCXX_USE_CXX11_ABI 1
 #include "Lector.h"
 //#include "ListaDC.cpp"
 #include "ListaDC.h"
@@ -15,15 +16,22 @@ using namespace std;
 
 //}
 
-void Lector:: LeerProvedores(listaDC listaProveedores) {
+void Lector:: LeerProveedores(ListaDC listaProveedores) {
 
     int codigo;
     string nombre;
+    string leido;
     int cont = 0;
+    string nomArchivo;
 
-    string nomArchivo = "Proveedores.txt";
-    Leer(nomArchivo, 0 );
-    listaProveedores.InsertarFinal;
+    nomArchivo = "Proveedores.txt";
+    leido = Leer(nomArchivo, 0 );
+    cout<< "leer";
+    codigo = convInt(leido);
+    cout<<codigo+5;
+    cout<< "convInt";
+    listaProveedores.InsertarFinal(codigo);
+    cout<<"Insertar Final";
    // cout <<cont;
 
 }
@@ -62,7 +70,9 @@ string Lector:: Leer(string nomArchivo, int cont) {
     cout<<cont;
 
     is.close();
+    cout<< "termina";
     return linea;
+
 }
 
 /*int Lector:: LeerOriginal(string nomArchivo){
