@@ -3,7 +3,9 @@
 //
 
 #include "Menu.h"
+#include "lista.cpp"
 #include <iostream>
+#include "ListaDC.h"
 #include "ListaDC.cpp"
 
 using namespace std;
@@ -33,7 +35,7 @@ bool Menu::verificarCliente(ListaDC pListaClientes){
 }
 
 
-bool Menu::verificarCategoria(Lista pListaCategorias){
+bool Menu::verificarCategoria(lista pListaCategorias){
 
     int pCategoria;
 
@@ -45,7 +47,7 @@ bool Menu::verificarCategoria(Lista pListaCategorias){
 }
 
 
-void Menu::crearCliente(){
+void Menu::crearCliente(ListaDC listaClientes){
 
     int pCedula;
     string pNombre;
@@ -74,11 +76,11 @@ void Menu::crearCliente(){
 }
 
 
-void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , Lista pListaCategorias , Lista pListaProductos) {
+void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pListaCategorias , lista pListaProductos) {
 
     int descuento = 0;
     int pCantidad = 1;
-    string pProducto;
+    int pProducto;
 
     cout << "Menu de Ventas\n";
 
@@ -92,7 +94,7 @@ void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , Lista pLis
 
             cout << "Cliente no existe\nAñadiendo nuevo cliente a la base de datos...\n";
 
-            crearCliente();
+            crearCliente(pListaClientes);
 
         }
 

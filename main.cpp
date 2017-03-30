@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Menu.cpp"
+#include "Lector.h"
 #include "Lector.cpp"
 
 
@@ -12,7 +13,7 @@ int main(){
     Menu menu;
     ListaDC listaClientes;
     Lector lector;
-    lector.Leer();
+    lector.LeerProvedores();
     //menu.start();
 
 

@@ -4,6 +4,8 @@
 
 #ifndef PROGRAI_MENU_H
 #define PROGRAI_MENU_H
+#include "lista.h"
+#include "ListaDC.h"
 #include <iostream>
 
 using namespace std;
@@ -15,9 +17,11 @@ class Menu {
 
 
 public:
-    void start();
-    bool pedirProveedor();
-    bool verificarCliente();
+    void start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pListaCategorias , lista pListaProductos);
+    bool pedirProveedor(ListaDC pListaProveedores);
+    bool verificarCliente(ListaDC pListaClientes);
+    bool verificarCategoria (lista pListaCategorias);
+    void crearCliente (ListaDC listaClientes);
 
 
 };

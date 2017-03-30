@@ -13,8 +13,48 @@ using namespace std;
 
 //}
 
+void Lector:: LeerProvedores() {
 
-int Lector:: Leer(string nomArchivo){
+    int codigo;
+    string nombre;
+    int cont = 0;
+
+    string nomArchivo = "Proveedores.txt";
+    Leer(nomArchivo, 0 );
+    cout <<cont;
+
+}
+
+
+
+int Lector:: Leer(string nomArchivo, int cont) {
+    cout<< nomArchivo;
+    ifstream is(nomArchivo);
+
+    char c;
+    string linea;
+    int contA;  //cuenta cuantos chars se avanzan en este ciclo
+
+
+    /*while(is.get(c)){
+        while (contA < cont) {
+            contA = contA + 1;
+
+        }
+    }*/
+
+    while (is.get(c)) {
+        cout<< "while";
+        while (c != ';'){
+            linea = linea + c;
+            cont = cont + 1;
+            cout << linea;
+        }
+
+    }
+}
+
+/*int Lector:: LeerOriginal(string nomArchivo){
 
 
     string cod_p;
@@ -28,7 +68,7 @@ int Lector:: Leer(string nomArchivo){
     char c;
     string linea;
     while (is.get(c)){// loop getting single characters
-        //if (cont <= 4 ){
+        if (cont <= 4 ){
 
             if (c != ';'){
                 linea = linea + c;
@@ -75,3 +115,4 @@ int Lector:: Leer(string nomArchivo){
 
     return 0;
 }
+*/

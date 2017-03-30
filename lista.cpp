@@ -7,7 +7,7 @@ using namespace std;
 
 
 lista::~lista() {
-    pnodo aux;
+    snodo aux;
 
     while(primero) {
         aux = primero;
@@ -21,7 +21,7 @@ lista::~lista() {
 int lista::largoLista(){
     int cont=0;
 
-    pnodo aux;
+    snodo aux;
     aux = primero;
     if(ListaVacia()){
         return cont;
@@ -48,7 +48,7 @@ void lista::InsertarFinal(int v)
     if (ListaVacia())
         primero = new nodo(v);
     else
-    { pnodo aux = primero;
+    { snodo aux = primero;
         while ( aux->siguiente != NULL)
             aux= aux->siguiente;
         aux->siguiente=new nodo(v);
@@ -62,18 +62,18 @@ void lista::InsertarPos(int v,int pos)
         primero = new nodo(v);
     else{
         if(pos <=1){
-            pnodo nuevo = new nodo(v);
+            snodo nuevo = new nodo(v);
             nuevo->siguiente= primero;
             primero= nuevo;
         }
         else{
-            pnodo aux= primero;
+            snodo aux= primero;
             int i =2;
             while((i != pos )&&(aux->siguiente!= NULL)){
                 i++;
                 aux=aux->siguiente;
             }
-            pnodo nuevo= new nodo(v);
+            snodo nuevo= new nodo(v);
             nuevo->siguiente=aux->siguiente;
             aux->siguiente=nuevo;
 
@@ -91,13 +91,13 @@ void lista::BorrarFinal()
             primero= NULL;
         } else {
 
-            pnodo aux = primero;
+            snodo aux = primero;
             while (aux->siguiente->siguiente != NULL) {
                 aux = aux->siguiente;
 
             }
 
-            pnodo temp = aux->siguiente;
+            snodo temp = aux->siguiente;
             aux->siguiente= NULL;
 
 
@@ -116,7 +116,7 @@ void lista::BorrarInicio()
             primero= NULL;
         } else {
 
-            pnodo aux = primero;
+            snodo aux = primero;
             primero=primero->siguiente;
             delete aux;
         }
@@ -136,7 +136,7 @@ void lista:: borrarPosicion(int pos){
                 primero=primero->siguiente;
             }else{
                 int cont=2;
-                pnodo aux=  primero;
+                snodo aux=  primero;
                 while(cont<pos){
                     aux=aux->siguiente;
                     cont++;
@@ -151,7 +151,7 @@ void lista:: borrarPosicion(int pos){
 
 void lista::Mostrar()
 {
-    nodo *aux;
+    snodo aux;
 
     aux = primero;
     while(aux) {
@@ -178,62 +178,39 @@ void lista::Ultimo()
         while(actual->siguiente) Siguiente();
 }
 
-void lista ::convLista(int num) {
+void lista ::convLista(int v) {
     while (v>0){
-        Lista.InsertarInicio (v%10);
+        InsertarInicio (v%10);
         v = v/10;
     }
 }
 
-int lista :: contarPares(){
-    int cont = 0;
-    pnodo aux;
-    if (ListaVacia()){
-        return cont;
-    }
-    else{
-        while (aux!= NULL){
-            if (aux -> valor %2 == 0){
-                count ++;
-                aux = aux -> siguiente;
-            }
-            else{
-                aux = aux ->siguiente;
-            }
+
+
+bool lista ::existe(int codigo) {
+    snodo aux = primero;
+
+    while (aux->siguiente != primero) {
+
+        if (aux->valor == codigo) {
+            return true;
+
+        } else {
+            aux = aux->siguiente;
         }
-        return count;
+
     }
+
+    if (aux->valor == codigo) {
+        return true;
+    }
+
+    return false;
 }
 
-void lista:: sumaLista (int num1, int num2){
-    Lista L1;
-    Lista L2;
-    int aux1;
-    int aux2;
 
-    while (num1>0){
-        L1.InsertarInicio(num1%10);
-        L2.InsertarInicio(num2%10);
-        num1 = num1/10;
-        num2 = num2/10;
-    }
-
-    if (L1.Largo()!= L2.Largo()){
-        cout << "Los numeros deben ser del mismo largo";
-
-    }
-    else{
-        aux1 = L1.Primero();
-        aux2 = L2.Primero();
-    }
-
-    while (L3.Largo() != L1.Largo()){
-        temp = aux1 -> valor + aux2 -> valor;
-        L3.InsertarInicio(temp);
-        temp = 0;
-        aux1 = aux1 -> siguiente;
-        aux2 = aux2 -> siguiente;
-    }
-    L3.Mostrar();
+void lista::reducirStock(int pProducto, int pCantidad) {
+    cout<< "No";
+    //FALTA
 
 }

@@ -5,9 +5,19 @@
 #ifndef ED_PROGRAI_LISTA_H
 #define ED_PROGRAI_LISTA_H
 
+#include "Nodo.h"
+
 class lista {
+
+
+private:
+    snodo primero;
+    snodo actual;
+
 public:
-    lista() { primero = actual = NULL; }
+    lista() {
+        primero = actual = NULL; }
+
     ~lista();
 
     void InsertarInicio(int v);
@@ -29,11 +39,13 @@ public:
     int largoLista();
     void sumarLista(int num1, int num2);
     void convLista(int num);
+    bool existe(int codigo);
+    void reducirStock (int pProducto , int pCantidad);
 
 
-private:
-    pnodo primero;
-    pnodo actual;
+
+
+
 };
 
 #endif //ED_PROGRAI_LISTA_H

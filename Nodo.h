@@ -9,14 +9,13 @@
 class nodo {
 
 public:
-        nodo(int v)
-        {
+        nodo(int v) {
             valor = v;
             siguiente = NULL;
         }
 
-        nodo(int v, nodo * signodo)
-        {
+
+        nodo(int v, nodo * signodo) {
             valor = v;
             siguiente = signodo;
         }
@@ -29,7 +28,9 @@ private:
         friend class lista;
     };
 
-    typedef nodo *pnodo;
+typedef nodo * snodo;
+
+
 
 
 
