@@ -12,9 +12,12 @@ int main(){
 
     Menu menu;
     ListaDC listaClientes;
+    ListaDC listaProveedores;
+    lista listaCategorias;
+    lista listaProductos;
     Lector lector;
     lector.LeerProvedores();
-    //menu.start();
+    menu.start(listaProveedores, listaClientes, listaCategorias, listaProductos);
 
 
 

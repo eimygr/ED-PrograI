@@ -21,7 +21,7 @@ void Lector:: LeerProvedores() {
 
     string nomArchivo = "Proveedores.txt";
     Leer(nomArchivo, 0 );
-    cout <<cont;
+   // cout <<cont;
 
 }
 
@@ -45,13 +45,20 @@ int Lector:: Leer(string nomArchivo, int cont) {
 
     while (is.get(c)) {
         cout<< "while";
-        while (c != ';'){
+
+        if (c != ';'){
+            cout << c;
             linea = linea + c;
             cont = cont + 1;
-            cout << linea;
+            cout << "linea:" + linea;
+        }else{
+            break;
         }
 
     }
+    cout<<cont;
+
+    is.close();
 }
 
 /*int Lector:: LeerOriginal(string nomArchivo){
