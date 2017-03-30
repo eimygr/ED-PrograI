@@ -7,7 +7,8 @@
 #include <iostream>
 #include "ListaDC.h"
 #include "ListaDC.cpp"
-#include
+//#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -24,13 +25,14 @@ int convInt(string s){
 
 bool Menu::pedirProveedor(ListaDC pListaProveedores){
 
-    string pProveedor;
+    string input;
+    int pProveedor;
 
     cout << "Digite el codigo del proveedor: \n";
 
-    cin >> pProveedor;
+    cin >> input;
 
-    pProveedor = convInt(pProveedor);
+    pProveedor = convInt(input);
 
    return  (pListaProveedores.existe(pProveedor));
     //return false;
