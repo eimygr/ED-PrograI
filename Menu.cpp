@@ -34,6 +34,7 @@ bool Menu::pedirProveedor(ListaDC pListaProveedores){
 
     pProveedor = convInt(input);
 
+    cout << pProveedor + 5;
    return  (pListaProveedores.existe(pProveedor));
     //return false;
 }

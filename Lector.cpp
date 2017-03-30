@@ -2,6 +2,8 @@
 // Created by Eimy on 23/03/2017.
 //
 #include "Lector.h"
+//#include "ListaDC.cpp"
+#include "ListaDC.h"
 #include <fstream>
 #include <iostream>
 
@@ -13,7 +15,7 @@ using namespace std;
 
 //}
 
-void Lector:: LeerProvedores() {
+void Lector:: LeerProvedores(listaDC listaProveedores) {
 
     int codigo;
     string nombre;
@@ -21,13 +23,14 @@ void Lector:: LeerProvedores() {
 
     string nomArchivo = "Proveedores.txt";
     Leer(nomArchivo, 0 );
+    listaProveedores.InsertarFinal;
    // cout <<cont;
 
 }
 
 
 
-int Lector:: Leer(string nomArchivo, int cont) {
+string Lector:: Leer(string nomArchivo, int cont) {
     cout<< nomArchivo;
     ifstream is(nomArchivo);
 
@@ -59,6 +62,7 @@ int Lector:: Leer(string nomArchivo, int cont) {
     cout<<cont;
 
     is.close();
+    return linea;
 }
 
 /*int Lector:: LeerOriginal(string nomArchivo){
