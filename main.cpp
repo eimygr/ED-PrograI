@@ -19,16 +19,22 @@ public:
         siguiente = NULL;
     }
 
-    nodo(string s) {
-        valorS = s;
-        siguiente = NULL;
-    }
-
 
     nodo(int v, nodo * signodo) {
         valor = v;
         siguiente = signodo;
     }
+
+    nodo(string s) {
+        valorS = s;
+        siguiente = NULL;
+    }
+
+    nodo(string s, nodo * signodo) {
+        valorS = s;
+        siguiente = signodo;
+    }
+
 
 private:
     int valor;
@@ -54,8 +60,6 @@ private:
 public:
     lista() {
         primero = actual = NULL; }
-
-    ~lista();
 
     void InsertarInicio(int v);
     void InsertarFinal(int v);
@@ -83,17 +87,6 @@ public:
 
 
 };
-
-lista::~lista() {
-    snodo aux;
-
-    while(primero) {
-        aux = primero;
-        primero = primero->siguiente;
-        delete aux;
-    }
-    actual = NULL;
-}
 
 
 int lista::largoLista(){
@@ -686,6 +679,7 @@ class Lector{
 public:
     ListaDC Leer1(string nomArchivo);
     lista Leer2(string nomArchivo);
+    lista Leer3(string nomArchivo);
 
 };
 
@@ -724,7 +718,6 @@ ListaDC Lector:: Leer1(string nomArchivo) {
             }else{
 
                 if (lista.existe(linea) and isdigit(linea[0])){
-                    cout<< c;
                     linea = "";
                     contAvanza = 3;
 
@@ -778,7 +771,6 @@ lista Lector:: Leer2(string nomArchivo) {
             }else{
 
                 if (Lista.existe(linea) and isdigit(linea[0])){
-                    cout<< c;
                     linea = "";
                     contAvanza = 1;
 
@@ -800,6 +792,58 @@ lista Lector:: Leer2(string nomArchivo) {
 
 }
 
+lista Lector:: Leer3(string nomArchivo) {
+
+    char c;
+    string linea = "";
+    lista Lista;
+    int cont = 0;
+    int contAvanza = 0;
+
+    ifstream is(nomArchivo);
+
+
+    while (is.get(c)) {
+
+        if (c == ';' or c== 10){
+            cont = cont +1;
+        }
+
+        if (contAvanza>0){
+            if (c == ';' or c == 10){
+
+                contAvanza = contAvanza -1;
+            }
+            continue;
+
+        }else{
+            if (c != ';' and c!= 10) {
+
+                linea = linea + c;
+
+            }else{
+
+                if (Lista.existe(linea) and isdigit(linea[0]) and cont%5 == 0){
+                    linea = "";
+                    contAvanza = 1;
+
+                }else{
+
+                    Lista.InsertarFinal(linea);
+
+                    linea = "";
+
+                }
+            }
+        }
+
+    }
+
+    Lista.InsertarFinal(linea);
+    is.close();
+    return Lista;
+
+}
 
 class Menu {
     int proveedor;
@@ -881,9 +925,9 @@ void Menu::crearCliente(ListaDC listaClientes){
 
 
     listaClientes.InsertarFinal(pCedula);
-//    listaClientes.InsertarFinal(pNombre);
- //   listaClientes.InsertarFinal(pDireccion);
- //   listaClientes.InsertarFinal(pTelefono);
+    listaClientes.InsertarFinal(pNombre);
+    listaClientes.InsertarFinal(pDireccion);
+    listaClientes.InsertarFinal(pTelefono);
 
 }
 
@@ -893,47 +937,64 @@ void Menu::start(ListaDC pListaProveedores , ListaDC pListaClientes , lista pLis
     int descuento = 0;
     int pCantidad = 1;
     int pProducto;
+    int opcion;
 
     cout<< "Bienvenido!\n";
     cout<< "  \n";
     cout << "Menu de Ventas\n";
 
-    if (pedirProveedor(pListaProveedores)) {
+    cout<< "1. Ventas\n";
+    cout<< "2. Salir\n";
 
-        if (verificarCliente(pListaClientes)) {
+    while (true) {
+        cout<< "Digite la opcion que desea:";
+        cin>>opcion;
 
-            descuento = 5;
+        if (opcion == 1) {
+            if (pedirProveedor(pListaProveedores)) {
 
-        } else {
+                if (verificarCliente(pListaClientes)) {
 
-            cout << "Cliente no existe\nAñadiendo nuevo cliente a la base de datos...\n";
+                    descuento = 5;
 
-            crearCliente(pListaClientes);
+                } else {
 
+                    cout << "Cliente no existe\nAñadiendo nuevo cliente a la base de datos...\n";
+
+                    crearCliente(pListaClientes);
+
+                }
+
+                if (verificarCategoria(pListaCategorias)) {
+
+                    cout << "Digite el codigo del producto que desea adquirir : \n";
+                    cin >> pProducto;
+
+                    cout << "Digite la cantidad de producto que desea adquirir : \n";
+                    cin >> pCantidad;
+
+                    pListaProductos.reducirStock(pProducto, pCantidad);
+
+                } else {
+
+                    cout << "La categoria no existe\n";
+
+                }
+
+            } else {
+                cout << "El proveedor no existe\n";
+                start(pListaProveedores, pListaClientes, pListaCategorias, pListaProductos);
+
+            }
         }
+        if (opcion == 2){
+            cout<< "Gracias!";
+            break;
 
-        if (verificarCategoria(pListaCategorias)) {
-
-            cout << "Digite el código del producto que desea adquirir : \n";
-            cin >> pProducto;
-
-            cout << "Digite la cantidad de producto que desea adquirir : \n";
-            cin >> pCantidad;
-
-            pListaProductos.reducirStock(pProducto , pCantidad);
-
-        } else {
-
-            cout << "La categoría no existe\n";
-
+        }else{
+            cout<< "Opcion Invalida. Vuelva a intentar.";
         }
-
-    } else {
-        cout << "El proveedor no existe\n";
-        start(pListaProveedores , pListaClientes , pListaCategorias , pListaProductos);
-
     }
-
 }
 
 
@@ -947,6 +1008,10 @@ int main (){
     lista listaCategorias;
     lista listaProductos;
     Lector lector;
+    lista Lista;
+    Lista.InsertarFinal("hola");
+    Lista.InsertarFinal("a");
+
 
 
 
@@ -954,9 +1019,14 @@ int main (){
     listaProveedores = lector.Leer1("Proveedores.txt");
     listaClientes = lector.Leer1("Clientes.txt");
     listaCategorias = lector.Leer2 ("Categorias.txt");
+    listaProductos = lector.Leer3("Productos.txt");
+    listaProveedores.MostrarS();
+    listaClientes.MostrarS();
     listaCategorias.MostrarS();
+    listaProductos.MostrarS();
     menu.start(listaProveedores, listaClientes, listaCategorias, listaProductos);
 
+    //Lista.existe("hola");
     //listaProveedores.existe(1889);
 
     return 0;
