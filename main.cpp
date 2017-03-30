@@ -7,6 +7,8 @@
 #include <fstream>
 #include <sstream>
 
+
+
 using  namespace std;
 
 class nodo {
@@ -14,6 +16,11 @@ class nodo {
 public:
     nodo(int v) {
         valor = v;
+        siguiente = NULL;
+    }
+
+    nodo(string s) {
+        valorS = s;
         siguiente = NULL;
     }
 
@@ -25,6 +32,7 @@ public:
 
 private:
     int valor;
+    string valorS;
     nodo *siguiente;
 
 
@@ -51,6 +59,7 @@ public:
 
     void InsertarInicio(int v);
     void InsertarFinal(int v);
+    void InsertarFinal(string s);
     void InsertarPos (int v, int pos);
     void EliminarInicio();
     void EliminarFinal();
@@ -59,6 +68,7 @@ public:
     void Imprimir();
     void Borrar(int v);
     void Mostrar();
+    void MostrarS();
     void Siguiente();
     void Primero();
     void Ultimo();
@@ -66,9 +76,8 @@ public:
     void BorrarInicio();
     void borrarPosicion(int pos);
     int largoLista();
-    void sumarLista(int num1, int num2);
     void convLista(int num);
-    bool existe(int codigo);
+    bool existe(string s);
     void reducirStock (int pProducto , int pCantidad);
 
 
@@ -121,6 +130,18 @@ void lista::InsertarFinal(int v)
         while ( aux->siguiente != NULL)
             aux= aux->siguiente;
         aux->siguiente=new nodo(v);
+    }
+}
+
+void lista::InsertarFinal(string s)
+{
+    if (ListaVacia())
+        primero = new nodo(s);
+    else
+    { snodo aux = primero;
+        while ( aux->siguiente != NULL)
+            aux= aux->siguiente;
+        aux->siguiente=new nodo(s);
     }
 }
 
@@ -230,6 +251,21 @@ void lista::Mostrar()
     cout << endl;
 }
 
+
+
+void lista::MostrarS()
+{
+    snodo aux;
+
+    aux = primero;
+    while(aux) {
+        cout << aux->valorS << "-> ";
+        aux = aux->siguiente;
+    }
+    cout << endl;
+}
+
+
 void lista::Siguiente()
 {
     if(actual) actual = actual->siguiente;
@@ -256,12 +292,12 @@ void lista ::convLista(int v) {
 
 
 
-bool lista ::existe(int codigo) {
+bool lista ::existe(string s) {
     snodo aux = primero;
 
-    while (aux->siguiente != primero) {
+    while (aux) {
 
-        if (aux->valor == codigo) {
+        if (aux->valorS == s) {
             return true;
 
         } else {
@@ -270,9 +306,6 @@ bool lista ::existe(int codigo) {
 
     }
 
-    if (aux->valor == codigo) {
-        return true;
-    }
 
     return false;
 }
@@ -351,6 +384,8 @@ public:
     void borrarPosicion(int pos);
     int largoLista();
     bool existe(int codigo);
+    bool existe(string s);
+    void MostrarS();
 
 private:
     pnodo primero;
@@ -412,7 +447,7 @@ void ListaDC::InsertarFinal(int v)
     }
 }
 
-/*void ListaDC::InsertarFinal(string s){
+void ListaDC::InsertarFinal(string s){
 
     if (ListaVacia()) {
         primero = new NodoDC(s);
@@ -423,14 +458,14 @@ void ListaDC::InsertarFinal(int v)
         pnodo nuevo = new NodoDC(s);
         nuevo->anterior = primero->anterior;
         nuevo->siguiente=primero->anterior->siguiente;
-        primero->anterior->siguiente=nuevo;
+        primero->anterior->siguiente = nuevo;
         primero->anterior=nuevo;
     }
 }
-*/
 
 
-void ListaDC::InsertarPos(int v,int pos)
+
+/*void ListaDC::InsertarPos(int v,int pos)
 {
     if (ListaVacia())
     {
@@ -445,7 +480,7 @@ void ListaDC::InsertarPos(int v,int pos)
         else
         {
             if (pos==largoLista())
-                InsertarFinal(v);
+                //InsertarFinal(v);
             else
             {
                 pnodo aux= primero;
@@ -463,7 +498,7 @@ void ListaDC::InsertarPos(int v,int pos)
             }
         }
     }
-}
+}*/
 
 void ListaDC::BorrarFinal()
 {
@@ -562,25 +597,74 @@ void ListaDC::Mostrar() {
     }
 }
 
+void ListaDC::MostrarS() {
+    pnodo aux= primero;
+
+    if (ListaVacia()){
+        cout<< "No se puede mostrar, la lista esta vacia";
+
+    }else {
+        while (aux->siguiente != primero) {
+
+            cout << aux->valorS << "-> ";
+            aux = aux->siguiente;
+        }
+
+        cout << aux->valorS << "->";
+        cout << endl;
+    }
+}
 
 bool ListaDC ::existe(int codigo) {
     pnodo aux = primero;
 
-    while (aux->siguiente != primero){
+    if (ListaVacia()){
+        cout<< "Lista Vacia";
 
-        if (aux -> valor == codigo){
-            return true;
+    }else {
+        while (aux->siguiente != primero) {
 
-        }else{
-            aux = aux -> siguiente;
+            if (aux->valor == codigo) {
+                return true;
+
+            } else {
+                aux = aux->siguiente;
+            }
+
         }
 
+        if (aux->valor == codigo) {
+            return true;
+        }
     }
+    return false;
 
-    if (aux->valor == codigo){
-        return true;
+}
+
+
+bool ListaDC :: existe(string s) {
+    pnodo aux = primero;
+
+    if (ListaVacia()){
+        cout<< "*";
+
+    }else {
+
+        while (aux->siguiente != primero){
+
+            if (aux->valorS == s){
+                return true;
+
+            }else{
+                aux = aux->siguiente;
+            }
+
+        }
+
+        if (aux->valorS == s){
+            return true;
+        }
     }
-
     return false;
 
 }
@@ -600,67 +684,119 @@ class Lector{
 
 
 public:
-    string Leer(string nomArchivo, int cont);
-    ListaDC LeerProveedores();
-    void LeerOriginal (string nomArchivo);
+    ListaDC Leer1(string nomArchivo);
+    lista Leer2(string nomArchivo);
+
 };
 
 
-ListaDC Lector:: LeerProveedores() {
 
+
+ListaDC Lector:: Leer1(string nomArchivo) {
+
+    char c;
+    string linea;
     ListaDC lista;
-    int codigo;
-    string nombre;
-    string leido;
     int cont = 0;
-    string nomArchivo;
+    int contAvanza = 0;
 
-    nomArchivo = "Proveedores.txt";
-    leido = Leer(nomArchivo, 0 );
-    codigo = convInt(leido);
-    lista.InsertarFinal(codigo);
-    //lista.Mostrar();
+    ifstream is(nomArchivo);
 
+
+    while (is.get(c)) {
+
+        if (c == ';' or c== 10){
+            cont = cont +1;
+        }
+
+        if (contAvanza>0){
+            if (c == ';' or c == 10){
+
+                contAvanza = contAvanza -1;
+            }
+            continue;
+
+        }else{
+            if (c != ';' and c!= 10) {
+
+                linea = linea + c;
+
+            }else{
+
+                if (lista.existe(linea) and isdigit(linea[0])){
+                    cout<< c;
+                    linea = "";
+                    contAvanza = 3;
+
+                }else{
+
+                    lista.InsertarFinal(linea);
+
+                    linea = "";
+
+                }
+            }
+        }
+
+    }
+
+    lista.InsertarFinal(linea);
+    is.close();
     return lista;
 
 }
 
-
-
-string Lector:: Leer(string nomArchivo, int cont) {
-    cout<< nomArchivo;
-    ifstream is(nomArchivo);
+lista Lector:: Leer2(string nomArchivo) {
 
     char c;
-    string linea;
-    int contA;  //cuenta cuantos chars se avanzan en este ciclo
+    string linea = "";
+    lista Lista;
+    int cont = 0;
+    int contAvanza = 0;
 
+    ifstream is(nomArchivo);
 
-    /*while(is.get(c)){
-        while (contA < cont) {
-            contA = contA + 1;
-
-        }
-    }*/
 
     while (is.get(c)) {
-        cout<< "while";
 
-        if (c != ';'){
-            cout << c;
-            linea = linea + c;
-            cont = cont + 1;
-            cout << "linea:" + linea;
+        if (c == ';' or c== 10){
+            cont = cont +1;
+        }
+
+        if (contAvanza>0){
+            if (c == ';' or c == 10){
+
+                contAvanza = contAvanza -1;
+            }
+            continue;
+
         }else{
-            break;
+            if (c != ';' and c!= 10) {
+
+                linea = linea + c;
+
+            }else{
+
+                if (Lista.existe(linea) and isdigit(linea[0])){
+                    cout<< c;
+                    linea = "";
+                    contAvanza = 1;
+
+                }else{
+
+                    Lista.InsertarFinal(linea);
+
+                    linea = "";
+
+                }
+            }
         }
 
     }
-    cout<<cont;
 
+    Lista.InsertarFinal(linea);
     is.close();
-    cout<< "termina";
-    return linea;
+    return Lista;
 
 }
 
@@ -687,16 +823,13 @@ public:
 
 bool Menu::pedirProveedor(ListaDC pListaProveedores){
 
-    string input;
-    int pProveedor;
+
+    string pProveedor;
 
     cout << "Digite el codigo del proveedor: \n";
 
-    cin >> input;
+    cin >> pProveedor;
 
-    pProveedor = convInt(input);
-
-    cout << pProveedor + 5;
     return  (pListaProveedores.existe(pProveedor));
     //return false;
 }
@@ -704,7 +837,7 @@ bool Menu::pedirProveedor(ListaDC pListaProveedores){
 
 bool Menu::verificarCliente(ListaDC pListaClientes){
 
-    int pIdCliente;
+    string pIdCliente;
 
     cout << "Digite el ID del cliente: \n";
     cin >> pIdCliente;
@@ -716,9 +849,9 @@ bool Menu::verificarCliente(ListaDC pListaClientes){
 
 bool Menu::verificarCategoria(lista pListaCategorias){
 
-    int pCategoria;
+    string pCategoria;
 
-    cout << "Digite la categoría del producto: \n";
+    cout << "Digite la categoria del producto: \n";
     cin >> pCategoria;
 
     return (pListaCategorias.existe(pCategoria));
@@ -728,22 +861,22 @@ bool Menu::verificarCategoria(lista pListaCategorias){
 
 void Menu::crearCliente(ListaDC listaClientes){
 
-    int pCedula;
+    string pCedula;
     string pNombre;
     string pDireccion;
-    int pTelefono;
+    string pTelefono;
 
 
-    cout << "Digite la cédula del cliente : \n";
+    cout << "Digite la cedula del cliente : \n";
     cin >> pCedula;
 
     cout << "Digite el nombre del cliente : \n";
     cin >> pNombre;
 
-    cout << "Digite la dirección del cliente : \n";
+    cout << "Digite la direccion del cliente : \n";
     cin >> pDireccion;
 
-    cout << "Digite el teléfono del cliente : \n";
+    cout << "Digite el telefono del cliente : \n";
     cin >> pTelefono;
 
 
@@ -816,12 +949,12 @@ int main (){
     Lector lector;
 
 
-    //listaProveedores.Mostrar();
-    //listaProveedores.InsertarFinal();
-    //listaProveedores.Mostrar();
 
-    listaProveedores = lector.LeerProveedores();
-    listaProveedores.Mostrar();
+
+    listaProveedores = lector.Leer1("Proveedores.txt");
+    listaClientes = lector.Leer1("Clientes.txt");
+    listaCategorias = lector.Leer2 ("Categorias.txt");
+    listaCategorias.MostrarS();
     menu.start(listaProveedores, listaClientes, listaCategorias, listaProductos);
 
     //listaProveedores.existe(1889);

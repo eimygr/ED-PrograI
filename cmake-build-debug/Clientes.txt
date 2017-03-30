@@ -1,0 +1,5 @@
+01;Francisco;SanPedro;34567890
+02;Jose;Alajuela;78902345
+03;Kevin;Limon;34567812
+04;Mario;Puntarenas;20573856
+02;Michael;Heredia;67983455

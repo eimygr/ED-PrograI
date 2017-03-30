@@ -62,7 +62,7 @@ void ListaDC::InsertarInicio(int v)
 
 
 
-void ListaDC::InsertarFinal(int v)
+/void ListaDC::InsertarFinal(int v)
 {
     if (ListaVacia()) {
         cout<< "Lista VAcia";

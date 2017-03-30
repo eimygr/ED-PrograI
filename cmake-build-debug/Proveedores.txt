@@ -1,1 +1,5 @@
-1899;"sdf";"asf";"asdf";
+01;Pedro;Heredia;84376405
+02;Esteban;SanJose;67893342
+03;Luis;Alajuela;88560123
+01;Laura;Alajuela;45976112
+04;Alejandro;Cartago
